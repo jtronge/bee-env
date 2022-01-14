@@ -6,11 +6,17 @@ CH_URL=https://github.com/hpc/charliecloud/releases/download/v0.25/charliecloud-
 CH_TARBALL=`basename $CH_URL`
 CH_SRC=`echo $CH_TARBALL | rev | cut -d'.' -f3- | rev`
 
-mkdir -p $BEE_ROOT/charliecloud
+mkdir -p $BEE_DEP_DIR
 cd $TMP
 curl -O -L $CH_URL
 tar -xvf $CH_TARBALL
 cd $CH_SRC
-./configure --prefix=$BEE_ROOT/charliecloud || exit 1
+./configure --prefix=$BEE_DEP_DIR || exit 1
 make || exit 1
 make install || exit 1
+if [ ! -d $BEE_VENV ]; then
+	$PYTHON -m venv $BEE_VENV || exit 1
+	. $BEE_VENV/bin/activate
+fi
+pip install --upgrade pip || exit 1
+pip install requests || exit 1

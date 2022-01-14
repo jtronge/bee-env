@@ -1,4 +1,5 @@
 #!/bin/sh
+# Install a debug version of Slurm for testing BEE
 
 . ./config.sh
 
@@ -6,7 +7,7 @@ mkdir -p $BEE_ROOT/etc
 mkdir -p $BEE_ROOT/var
 
 # Install slurmrestd deps
-HTTP_PARSER_PATH=$BEE_ROOT/http-parser
+HTTP_PARSER_PATH=$BEE_DEP_DIR
 mkdir -p $HTTP_PARSER_PATH
 cd $TMP
 git clone https://github.com/nodejs/http-parser.git
@@ -14,7 +15,7 @@ cd http-parser
 make PREFIX=$HTTP_PARSER_PATH || exit 1
 make PREFIX=$HTTP_PARSER_PATH install || exit 1
 # json-c
-JSON_C_PATH=$BEE_ROOT/json-c
+JSON_C_PATH=$BEE_DEP_DIR
 mkdir -p $JSON_C_PATH
 cd $TMP
 git clone https://github.com/json-c/json-c.git
@@ -26,7 +27,7 @@ cmake ../json-c -DCMAKE_INSTALL_PREFIX=$JSON_C_PATH
 MUNGE_URL=https://github.com/dun/munge/releases/download/munge-0.5.14/munge-0.5.14.tar.xz
 MUNGE_TARBALL=`basename $MUNGE_URL`
 MUNGE_SRC=`echo $MUNGE_TARBALL | rev | cut -d'.' -f3- | rev`
-MUNGE_PATH=$BEE_ROOT/munge
+MUNGE_PATH=$BEE_DEP_DIR
 mkdir -p $MUNGE_PATH
 cd $TMP
 curl -O -L $MUNGE_URL
@@ -48,7 +49,8 @@ cd $TMP
 curl -O -L $SLURM_URL
 tar -xvf $SLURM_TARBALL
 cd $SLURM_SRC
-./configure --prefix=$BEE_ROOT/slurm \
+SLURM_PATH=$BEE_DEP_DIR
+./configure --prefix=$BEE_DEP_DIR \
             --with-munge=$MUNGE_PATH \
             --with-http-parser=$HTTP_PARSER_PATH \
             --with-json=$JSON_C_PATH \

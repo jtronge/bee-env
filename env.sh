@@ -1,9 +1,9 @@
 #!/bin/sh
+# BEE environment file to be sourced
 
 . ./config.sh
-. ./dep-env.sh
-if [ ! -f venv/bin/activate ]; then
-    printf "Missing venv, maybe BEE has not been installed yet\n" 1>&2
+if [ -f $BEE_VENV/bin/activate ]; then
+    . $BEE_VENV/bin/activate
+    # printf "Missing venv, maybe BEE has not been installed yet\n" 1>&2
 fi
-. ./venv/bin/activate
-cd $BEE_ROOT/$BEE_NAME
+# cd $BEE_ROOT/$BEE_NAME

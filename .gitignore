@@ -1,11 +1,2 @@
-.
-etc
-charliecloud
-munge
-var
-BEE_Private
-slurm
-http-parser
-json-c
+deps
 venv
-python
