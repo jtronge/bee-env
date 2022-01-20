@@ -22,15 +22,15 @@ poetry install
 
 # Write a test config
 if [ -f $BEE_CONFIG ]; then
-	cp $BEE_CONFIG $BEE_ROOT/bee.conf.`date +s`
+	cp $BEE_CONFIG $BEE_ROOT/bee.conf.`date +%s`
 fi
-cp $BEE_ROOT
+# cp $BEE_ROOT
 rm -rf $BEE_CONFIG
 mkdir -p $HOME/.config/beeflow
 cat >> $BEE_CONFIG <<EOF
 [DEFAULT]
 bee_workdir = $BEE_WORKDIR
-workload_scheduler = Simple
+workload_scheduler = Slurm
 use_archive = False
 
 [task_manager]
@@ -61,4 +61,8 @@ listen_port = 7233
 deployed_image_root = /tmp
 container_output_path = /
 container_type = charliecloud
+
+[slurmrestd]
+slurm_socket = /tmp/slurm.sock
+slurm_args = -s openapi/v0.0.35
 EOF

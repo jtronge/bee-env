@@ -3,6 +3,7 @@
 
 . ./env.sh
 
+echo $PATH
 munged -F &
 slurmctld -D &
 slurmd -D &
