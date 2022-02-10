@@ -32,7 +32,8 @@ make test || exit 1
 make install || exit 1
 
 # Install Slurm
-SLURM_URL=https://download.schedmd.com/slurm/slurm-21.08.5.tar.bz2
+SLURM_VERSION=20.11.8
+SLURM_URL=https://download.schedmd.com/slurm/slurm-$SLURM_VERSION.tar.bz2
 SLURM_TARBALL=`basename $SLURM_URL`
 SLURM_SRC=`echo $SLURM_TARBALL | rev | cut -d'.' -f3- | rev`
 mkdir -p $BEE_ROOT/slurm
