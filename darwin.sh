@@ -1,6 +1,7 @@
 #!/bin/sh
 # Install a debug version of Slurm for testing BEE
 
+TMP=/tmp
 INSTALL_ROOT=$HOME/slurmrestd
 NUMJOBS=4
 
